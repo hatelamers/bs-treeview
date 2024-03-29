@@ -379,7 +379,7 @@ export default class BSTreeViewNode {
         }
 
         // Add indent/spacer to mimic tree structure
-        for (let i = 0; i < this._level - 1; i++) {
+		for (let i = 0; this._domIndents.length < this._level - 1 && i < this._level - 1; i++) {
             this._domIndents.push(
                 Template.indent.cloneNode(true) as HTMLElement
             );
@@ -423,6 +423,7 @@ export default class BSTreeViewNode {
 
         // Add tags as badges
         if (this._options.showTags && this.tags) {
+			this._domBadges = [];
             this.tags.forEach((tag) => {
                 const template = Template.badge.cloneNode(true) as HTMLElement;
 
@@ -538,7 +539,7 @@ export default class BSTreeViewNode {
         options: Partial<BSTreeViewMethodOptions> = new BSTreeViewMethodOptions()
     ): this {
         // Lazy-load the child nodes if possible
-        if (typeof this.lazyLoad === 'function' && this.lazyLoad) {
+		if (typeof this._options.lazyLoad === 'function' && this.lazyLoad) {
             this._lazyLoad();
         } else {
             this.setExpanded(!this.state.expanded, options);
@@ -556,11 +557,11 @@ export default class BSTreeViewNode {
         if (!this.lazyLoad) return;
 
         // Show a different icon while loading the child nodes
-        if (this._domIconExpand) {
-            this._domImage.classList.remove(
+		if (this._domIconExpand && this._domIcon) {
+			this._domIcon.classList.remove(
                 ...this._options.expandIcon.split(' ')
             );
-            this._domImage.classList.add(
+			this._domIcon.classList.add(
                 ...this._options.loadingIcon.split(' ')
             );
         }
@@ -1032,7 +1033,7 @@ export default class BSTreeViewNode {
     _addIcon(): void {
         if (
             this._options.showIcon &&
-            this.icon &&
+			(this.icon || this._options.nodeIcon) &&
             !(this._options.showImage && this.image)
         ) {
             this._domIcon = Template.icon.node.cloneNode(true) as HTMLElement;
