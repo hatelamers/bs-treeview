@@ -1,0 +1,29 @@
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Use this theme to use Font Awesome icons in the treeview.
+     */
+    class FAIconThemeClass {
+        getOptions() {
+            return {
+                expandIcon: 'fas fa-plus fa-fw fa-treeview',
+                collapseIcon: 'fas fa-minus fa-fw fa-treeview',
+                emptyIcon: 'fas fa-treeview fa-fw',
+                loadingIcon: 'fas fa-sync fa-spin fa-treeview',
+                checkedIcon: 'fas fa-check-square fa-fw fa-treeview',
+                uncheckedIcon: 'far fa-square fa-fw fa-treeview',
+                partiallyCheckedIcon: 'fas fa-minus-square fa-fw fa-treeview',
+            };
+        }
+    }
+    exports.default = new FAIconThemeClass();
+});
