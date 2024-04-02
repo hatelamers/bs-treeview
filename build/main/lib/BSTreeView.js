@@ -1289,8 +1289,7 @@
                 return this._getNodeValue(_obj, _attr);
             }
             else {
-                // eslint-disable-next-line no-prototype-builtins
-                if (obj.hasOwnProperty(attr) && obj[attr] !== undefined) {
+                if (obj[attr] !== undefined) {
                     return obj[attr].toString();
                 }
                 else {
