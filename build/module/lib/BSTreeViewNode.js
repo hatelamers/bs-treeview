@@ -92,7 +92,7 @@ export default class BSTreeViewNode {
      */
     get parentId() {
         var _a;
-        return (_a = this._parentNode._nodeId) !== null && _a !== void 0 ? _a : null;
+        return (_a = (this._parentNode && this._parentNode._nodeId)) !== null && _a !== void 0 ? _a : null;
     }
     /**
      * Returns true, if this node is a root node (meaning it has no parent). False otherwise.
